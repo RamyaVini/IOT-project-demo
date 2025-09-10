@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-iot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-iot
+  template:
+    metadata:
+      labels:
+        app: frontend-iot
+    spec:
+      containers:
+      - name: frontend
+        image: frontend-iot:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-iot
+spec:
+  selector:
+    app: frontend-iot
+  ports:
+  - port: 3000
+    targetPort: 3000
+
